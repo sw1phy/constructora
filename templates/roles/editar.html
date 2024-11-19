@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Rol</title>
+</head>
+<body>
+    <h2>Editar Rol</h2>
+    <form method="post" action="/Roles/editar/{{roll.0}}">
+        <label>Rol</label>
+        <input type="text" name="rol" value="{{roll.1}}">
+        <input type="submit" value="Editar">
+    </form>  
+    <div>
+        <a href="/Roles/index">Volver a la lista de roles</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario</title>
+</head>
+<body>
+    <h2>Editar Usuario</h2>
+    <form method="post" action="/Usuarios/editar/{{ usu[0] }}">
+        <label>Nombre</label>
+        <input type="text" name="nombre" value="{{ usu[1] }}" required><br>
+        
+        <label>Email</label>
+        <input type="email" name="email" value="{{ usu[2] }}" required><br>
+        
+        <label>Contraseña</label>
+        <input type="password" name="contraseña" value="{{ usu[3] }}" required><br>
+        
+        <label for="rol">Rol</label>
+        <select name="rol" id="rol" required>
+            {% for roll in roles %}
+                <option value="{{ roll[0] }}">{{ roll[1] }}</option>
+            {% endfor %}
+        
+        <input type="submit" value="Actualizar">
+    </form>
+    <div>
+        <a href="/Usuarios/index">Volver a la lista de usuarios</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Usuarios</title>
+</head>
+<body>
+    <h2>Listado de Usuarios</h2>
+    <div>
+        <a href="/Usuarios/agregar">Nuevo Usuario</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Acciones</th>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Contraseña</th>
+                <th>Rol</th>
+            </tr>    
+        </thead>
+        <tbody>
+            {% for usu in lista %}
+            <tr>
+                <td>
+                   <a href="/Usuarios/editar/{{ usu[0] }}">editar</a>
+                   <a href="/Usuarios/eliminar/{{ usu[0] }}">eliminar</a>
+                </td>
+                <td>{{ usu[0] }}</td>
+                <td>{{ usu[1] }}</td>
+                <td>{{ usu[2] }}</td>
+                <td>{{ usu[3] }}</td>
+                <td>{{ usu[4] }}</td>
+            </tr>
+            {% endfor %}          
+        </tbody>
+    </table>
+</body>
+</html>

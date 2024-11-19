@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Roles</title>
+</head>
+<body>
+    <h2>Listado de Roles</h2>
+    <div>
+        <a href="/Roles/agregar">Nuevo Rol</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Acciones</th>
+                <th>ID Rol</th>
+                <th>Nombre del Rol</th>
+            </tr>    
+        </thead>
+        <tbody>
+            {% for roll in lista %}
+            <tr>
+                <td>
+                   <a href="/Roles/editar/{{ roll[0] }}">editar</a>
+                   <a href="/Roles/eliminar/{{ roll[0] }}">eliminar</a>
+                </td>
+                <td>{{ roll[0] }}</td>
+                <td>{{ roll[1] }}</td>
+            </tr>
+            {% endfor %}          
+        </tbody>
+    </table>
+</body>
+</html>

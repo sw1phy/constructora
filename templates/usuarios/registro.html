@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://www.transparenttextures.com/patterns/brick-wall-dark.png');
+            background-color: #555;
+            color: #fff;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .container i {
+            font-size: 50px;
+            color: #ffa500;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        label {
+            font-size: 14px;
+            display: block;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        input, select {
+            background: #f7f7f7;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #ffa500;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #ff7f00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <i class="fas fa-hard-hat"></i>
+        <h1>Registro de Usuario</h1>
+        <form method="POST">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="contraseña">Contraseña:</label>
+            <input type="password" id="contraseña" name="contraseña" required>
+            
+            <label for="rol_id">Rol:</label>
+            <select id="rol_id" name="rol_id" required>
+                {% for rol in roles %}
+                <option value="{{ rol[0] }}">
+                    {% if rol[0] == 3 %}Cliente
+                    {% elif rol[0] == 1 %}Gerente de Proyectos
+                    {% elif rol[0] == 2 %}Supervisor de Obra
+                    {% endif %}
+                </option>
+                {% endfor %}
+            </select>
+            
+            <button type="submit">Registrar</button>
+        </form>
+    </div>
+</body>
+</html>

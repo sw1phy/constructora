@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Usuario</title>
+</head>
+<body>
+    <h2>Eliminar Usuario</h2>
+    <form method="post" action="/Usuarios/eliminar/{{ usu[0] }}">
+        <label>Nombre</label>
+        <input type="text" name="nombre" value="{{ usu[1] }}" disabled="true">
+        
+        <label>Email</label>
+        <input type="text" name="email" value="{{ usu[2] }}" disabled="true">
+        
+        <label>Contraseña</label>
+        <input type="text" name="contraseña" value="{{ usu[3] }}" disabled="true">
+        
+        <label>Rol</label>
+        <input type="text" name="rol_id" value="{{ usu[4] }}" disabled="true">
+        
+        <input type="submit" value="Eliminar">
+    </form>  
+    
+    <div>
+        <a href="/Usuarios/index">Volver a la lista de usuarios</a>
+    </div>
+</body>
+</html>

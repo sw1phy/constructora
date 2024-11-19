@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Usuario</title>
+</head>
+<body>
+    <h2>Agregar Usuario</h2>
+    <form method="post">
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre" required>
+        
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email" required>
+        
+        <label for="contraseña">Contraseña</label>
+        <input type="text" name="contraseña" id="contraseña" required>
+
+        <label for="rol">Rol</label>
+        <select name="rol" id="rol" required>
+            {% for roll in roles %}
+                <option value="{{ roll[0] }}">{{ roll[1] }}</option>
+            {% endfor %}
+        </select>
+
+
+        <input type="submit" value="Guardar">
+    </form>
+    <div>
+        <a href="/Usuarios/index">Volver a la lista de usuarios</a>
+    </div>
+</body>
+</html>
