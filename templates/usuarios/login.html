@@ -26,7 +26,6 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             text-align: center;
-            position: relative;
         }
         .container i {
             font-size: 50px;
@@ -67,36 +66,35 @@
         button:hover {
             background: #ff7f00;
         }
-        .back-to-register {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: #ffa500;
-            font-size: 20px;
-            text-decoration: none;
-            transition: color 0.3s ease;
+        .redirect {
+            text-align: center;
+            margin-top: 10px;
         }
-        .back-to-register:hover {
-            color: #ff7f00;
+        .redirect a {
+            color: #ffa500;
+            text-decoration: none;
+        }
+        .redirect a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="/Usuarios/registro" class="back-to-register" title="Ir al registro">
-            <i class="fas fa-arrow-left"></i>
-        </a>
-        <i class="fas fa-hard-hat"></i>
+        <i class="fas fa-user-circle"></i>
         <h1>Iniciar Sesión</h1>
-        <form method="POST">
-            <label for="email">Email:</label>
+        <form method="POST" action="/usuarios/login">
+            <label for="email">Correo Electrónico:</label>
             <input type="email" id="email" name="email" required>
-            
+
             <label for="contraseña">Contraseña:</label>
             <input type="password" id="contraseña" name="contraseña" required>
-            
+
             <button type="submit">Iniciar Sesión</button>
         </form>
+        <div class="redirect">
+            <p>¿No tienes una cuenta? <a href="/Usuarios/registro">Regístrate aquí</a></p>
+        </div>
     </div>
 </body>
 </html>

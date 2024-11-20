@@ -66,6 +66,18 @@
         button:hover {
             background: #ff7f00;
         }
+        .link-button {
+            background: transparent;
+            border: none;
+            color: #ffa500;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: -10px;
+        }
+        .link-button:hover {
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -96,6 +108,7 @@
             
             <button type="submit">Registrar</button>
         </form>
+        <button class="link-button" onclick="window.location.href='{{ url_for('login_usuario') }}'">Ya soy un usuario</button>
     </div>
 </body>
 </html>

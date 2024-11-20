@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Proyectos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            background-color: #333;
+            color: #fff;
+        }
+        .menu-container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .menu-container i {
+            font-size: 50px;
+            color: #ffa500;
+            margin-bottom: 20px;
+        }
+        .menu-container h1 {
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        .menu-container .button {
+            width: 100%;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s ease;
+        }
+        .button i {
+            margin-right: 8px;
+        }
+        .button-create {
+            background: #28a745; /* Verde */
+        }
+        .button-create:hover {
+            background: #218838;
+        }
+        .button-read {
+            background: #17a2b8; /* Azul */
+        }
+        .button-read:hover {
+            background: #138496;
+        }
+        .button-update {
+            background: #ffc107; /* Amarillo */
+        }
+        .button-update:hover {
+            background: #e0a800;
+        }
+        .button-delete {
+            background: #dc3545; /* Rojo */
+        }
+        .button-delete:hover {
+            background: #c82333;
+        }
+        .button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <i class="fas fa-building"></i>
+        <h1>Gestión de Proyectos</h1>
+        <button class="button button-create" onclick="location.href='/proyectos/crear'">
+            <i class="fas fa-plus-circle"></i> Crear Proyecto
+        </button>
+        <button class="button button-update" onclick="location.href='/proyectos/actualizar'">
+            <i class="fas fa-edit"></i> Actualizar Proyecto
+        </button>
+        <button class="button button-read" onclick="location.href='/proyectos/leer'">
+            <i class="fas fa-eye"></i> Ver y Eliminar Proyectos
+        </button>
+
+
+    </div>
+</body>
+</html>
