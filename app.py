@@ -27,35 +27,6 @@ def home():
     return redirect('/Usuarios/registro')
 
 
-@app.route("/proyectos/actualizar", methods=["POST"])
-def actualizar_proyectos():
-    datos = request.form
-    conn = get_db_connection()
-    if conn:
-        try:
-            with conn.cursor() as cursor:
-                cursor.execute("""
-                    UPDATE proyectos
-                    SET Nombre = %s, TipoProyecto = %s, CondicionesTerreno = %s,
-                        TamañoTerreno = %s, NumeroTrabajadores = %s, TiempoEstimado = %s,
-                        PorcentajeGanancia = %s, CostoTotal = %s, Estado = %s,
-                        Supervisor_ID = %s, IngresosEstimados = %s
-                    WHERE ID = %s
-                """, (
-                    datos["nombre"], datos["tipo_proyecto"], datos["condiciones_terreno"],
-                    datos["tamaño_terreno"], datos["numero_trabajadores"], datos["tiempo_estimado"],
-                    datos["porcentaje_ganancia"], datos["costo_total"], datos["estado"],
-                    datos["supervisor"], datos["ingresos_estimados"], datos["id"]
-                ))
-                conn.commit()
-            return redirect("/proyectos/menu")
-        except Error as e:
-            print(f"Error al actualizar el proyecto: {e}")
-            return "Error al actualizar el proyecto."
-        finally:
-            conn.close()
-    else:
-        return "Error al conectar a la base de datos."
 
 @app.route("/proyectos/eliminar", methods=['POST'])
 def eliminar_proyecto():
@@ -123,85 +94,36 @@ def detalles_proyecto(proyecto_id):
         return {}, 500
 
 
-@app.route('/proyectos/actualizar', methods=['GET', 'POST'])
-def listar_proyectos_actualizar():
+@app.route("/proyectos/actualizar", methods=['GET',"POST"])
+def actualizar_proyectos():
+    datos = request.form
     conn = get_db_connection()
-    if not conn:
-        flash("Error al conectar a la base de datos.", "danger")
-        return redirect(url_for('menu_proyectos'))
-
-    try:
-        with conn.cursor(dictionary=True) as cursor:
-            # Obtener todos los proyectos para seleccionar
-            cursor.execute("SELECT ID, Nombre FROM proyectos")
-            proyectos = cursor.fetchall()
-
-        return render_template('proyectos/actualizar.html', proyectos=proyectos)
-    except Error as e:
-        print(f"Error al listar proyectos: {e}")
-        flash("Error al obtener los proyectos.", "danger")
-        return redirect(url_for('menu_proyectos'))
-    finally:
-        conn.close()
-
-
-@app.route('/proyectos/editar/<int:proyecto_id>', methods=['GET', 'POST'])
-def actualizar_proyecto(proyecto_id):
-    conn = get_db_connection()
-    if not conn:
-        flash("Error al conectar a la base de datos.", "danger")
-        return redirect(url_for('menu_proyectos'))
-
-    if request.method == 'POST':
-        # Recibir datos del formulario
-        nombre = request.form['nombre']
-        tipo_proyecto = request.form['tipo_proyecto']
-        condiciones_terreno = request.form['condiciones_terreno']
-        tamaño_terreno = request.form['tamaño_terreno']
-        numero_trabajadores = request.form['numero_trabajadores']
-        tiempo_estimado = request.form['tiempo_estimado']
-        costo_total = request.form['costo_total']
-        estado = request.form['estado']
-        supervisor_id = request.form['supervisor_id']
-        ingresos_estimados = request.form['ingresos_estimados']
-
+    if conn:
         try:
             with conn.cursor() as cursor:
-                # Actualizar los datos del proyecto
                 cursor.execute("""
                     UPDATE proyectos
-                    SET Nombre = %s, TipoProyecto = %s, CondicionesTerreno = %s, TamañoTerreno = %s,
-                        NumeroTrabajadores = %s, TiempoEstimado = %s, CostoTotal = %s, Estado = %s,
+                    SET Nombre = %s, TipoProyecto = %s, CondicionesTerreno = %s,
+                        TamañoTerreno = %s, NumeroTrabajadores = %s, TiempoEstimado = %s,
+                        PorcentajeGanancia = %s, CostoTotal = %s, Estado = %s,
                         Supervisor_ID = %s, IngresosEstimados = %s
                     WHERE ID = %s
-                """, (nombre, tipo_proyecto, condiciones_terreno, tamaño_terreno, numero_trabajadores,
-                      tiempo_estimado, costo_total, estado, supervisor_id, ingresos_estimados, proyecto_id))
+                """, (
+                    datos["nombre"], datos["tipo_proyecto"], datos["condiciones_terreno"],
+                    datos["tamaño_terreno"], datos["numero_trabajadores"], datos["tiempo_estimado"],
+                    datos["porcentaje_ganancia"], datos["costo_total"], datos["estado"],
+                    datos["supervisor"], datos["ingresos_estimados"], datos["id"]
+                ))
                 conn.commit()
-                flash("Proyecto actualizado exitosamente.", "success")
-                return redirect(url_for('listar_proyectos_actualizar'))
+            return redirect("/menu_proyectos")
         except Error as e:
             print(f"Error al actualizar el proyecto: {e}")
-            flash("Error al actualizar el proyecto.", "danger")
+            return "Error al actualizar el proyecto."
         finally:
             conn.close()
+    else:
+        return "Error al conectar a la base de datos."
 
-    try:
-        with conn.cursor(dictionary=True) as cursor:
-            # Obtener los datos del proyecto a editar
-            cursor.execute("SELECT * FROM proyectos WHERE ID = %s", (proyecto_id,))
-            proyecto = cursor.fetchone()
-
-            # Obtener la lista de supervisores
-            cursor.execute("SELECT ID, Nombre FROM usuarios")
-            supervisores = cursor.fetchall()
-
-        return render_template('proyectos/editar.html', proyecto=proyecto, supervisores=supervisores)
-    except Error as e:
-        print(f"Error al obtener detalles del proyecto: {e}")
-        flash("Error al cargar el formulario de edición.", "danger")
-        return redirect(url_for('listar_proyectos_actualizar'))
-    finally:
-        conn.close()
 
 
 
@@ -239,7 +161,7 @@ def crear_proyecto():
                           numero_trabajadores, tiempo_estimado, costo_total, estado,
                           supervisor_id, ingresos_estimados))
                     conn.commit()
-                    return redirect('/proyectos/menu')
+                    return redirect('/menu_proyectos')
 
             return render_template('proyectos/crear.html', supervisores=supervisores)
         except Error as e:

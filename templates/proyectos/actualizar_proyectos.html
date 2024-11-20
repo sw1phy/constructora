@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ver Proyectos</title>
+    <title>Actualizar Proyectos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         /* General Body Styling */
@@ -76,7 +76,7 @@
             margin-top: 10px;
         }
 
-        .details input, .details textarea {
+        .details input, .details textarea, .details select {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
@@ -87,59 +87,51 @@
             color: #ecf0f1;
         }
 
-        .details input[readonly], .details textarea[readonly] {
-            background: #444;
-            color: #bbb;
-        }
-
         .details textarea {
             resize: none;
         }
 
-/* Botones */
-.btn-back, .btn-delete {
-    margin-top: 20px;
-    display: block;
-    text-align: center;
-    background: #f39c12;
-    color: #fff;
-    padding: 10px 15px; /* Asegúrate de que ambos botones tengan el mismo padding */
-    font-size: 16px;  /* Tamaño de fuente consistente */
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: 0.3s;
-    width: 100%; /* Hacer que los botones tengan el mismo ancho */
-}
+        .btn-save {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+            background: #f39c12;
+            color: #fff;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
 
-.btn-back:hover, .btn-delete:hover {
-    background: #e67e22;
-}
+        .btn-save:hover {
+            background: #e67e22;
+        }
 
-/* Botón Borrar */
-.btn-delete {
-    margin-top: 20px;
-    margin-bottom: 50px;
-    display: block;
-    text-align: center;
-    background: #e74c3c;
-    color: #fff;
-    padding: 10px 15px;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: 0.3s;
-    width: 25%; /* Hacer que el botón "Borrar" ocupe el 50% del ancho */
-    margin-left: auto;
-    margin-right: auto; /* Centrar el botón */
-}
+        .btn-back {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+            background: #34495e;
+            color: #fff;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
 
+        .btn-back:hover {
+            background: #2c3e50;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Ver Proyectos</h1>
+        <h1>Actualizar Proyectos</h1>
         <div class="select-project">
             <label for="project-list">Selecciona un Proyecto:</label>
             <select id="project-list" onchange="fetchProjectDetails()">
@@ -149,43 +141,44 @@
                 {% endfor %}
             </select>
         </div>
-        <div class="details">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" readonly>
+        <form id="update-form" method="POST" action="/proyectos/actualizar">
+            <div class="details">
+                <input type="hidden" id="project-id" name="id">
 
-            <label for="tipo_proyecto">Tipo de Proyecto:</label>
-            <input type="text" id="tipo_proyecto" readonly>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre">
 
-            <label for="condiciones_terreno">Condiciones del Terreno:</label>
-            <textarea id="condiciones_terreno" readonly></textarea>
+                <label for="tipo_proyecto">Tipo de Proyecto:</label>
+                <input type="text" id="tipo_proyecto" name="tipo_proyecto">
 
-            <label for="tamaño_terreno">Tamaño del Terreno (m²):</label>
-            <input type="text" id="tamaño_terreno" readonly>
+                <label for="condiciones_terreno">Condiciones del Terreno:</label>
+                <textarea id="condiciones_terreno" name="condiciones_terreno"></textarea>
 
-            <label for="numero_trabajadores">Número de Trabajadores:</label>
-            <input type="text" id="numero_trabajadores" readonly>
+                <label for="tamaño_terreno">Tamaño del Terreno (m²):</label>
+                <input type="number" id="tamaño_terreno" name="tamaño_terreno" step="0.01">
 
-            <label for="tiempo_estimado">Tiempo Estimado (días):</label>
-            <input type="text" id="tiempo_estimado" readonly>
+                <label for="numero_trabajadores">Número de Trabajadores:</label>
+                <input type="number" id="numero_trabajadores" name="numero_trabajadores">
 
-            <label for="porcentaje_ganancia">Porcentaje de Ganancia (%):</label>
-            <input type="text" id="porcentaje_ganancia" readonly>
+                <label for="tiempo_estimado">Tiempo Estimado (días):</label>
+                <input type="number" id="tiempo_estimado" name="tiempo_estimado">
 
-            <label for="costo_total">Costo Total (L):</label>
-            <input type="text" id="costo_total" readonly>
+                <label for="porcentaje_ganancia">Porcentaje de Ganancia (%):</label>
+                <input type="number" id="porcentaje_ganancia" name="porcentaje_ganancia" step="0.01">
 
-            <label for="estado">Estado:</label>
-            <input type="text" id="estado" readonly>
+                <label for="costo_total">Costo Total (L):</label>
+                <input type="number" id="costo_total" name="costo_total" step="0.01">
 
-            <label for="supervisor">Supervisor:</label>
-            <input type="text" id="supervisor" readonly>
+                <label for="estado">Estado:</label>
+                <input type="text" id="estado" name="estado">
 
-            <label for="ingresos_estimados">Ingresos Estimados (L):</label>
-            <input type="text" id="ingresos_estimados" readonly>
-        </div>
-        <form method="POST" action="/proyectos/eliminar">
-            <input type="hidden" id="project-id-to-delete" name="project_id">
-            <button type="submit" class="btn-delete">Borrar</button>
+                <label for="supervisor">Supervisor:</label>
+                <input type="text" id="supervisor" name="supervisor">
+
+                <label for="ingresos_estimados">Ingresos Estimados (L):</label>
+                <input type="number" id="ingresos_estimados" name="ingresos_estimados" step="0.01">
+            </div>
+            <button type="submit" class="btn-save">Actualizar Proyecto</button>
         </form>
         <a href="/menu_proyectos" class="btn-back">Volver al Menú</a>
     </div>
@@ -198,6 +191,7 @@
                 fetch(`/proyectos/detalles/${projectId}`)
                     .then(response => response.json())
                     .then(data => {
+                        document.getElementById('project-id').value = projectId;
                         document.getElementById('nombre').value = data.Nombre;
                         document.getElementById('tipo_proyecto').value = data.TipoProyecto;
                         document.getElementById('condiciones_terreno').value = data.CondicionesTerreno;
@@ -209,9 +203,6 @@
                         document.getElementById('estado').value = data.Estado;
                         document.getElementById('supervisor').value = data.Supervisor;
                         document.getElementById('ingresos_estimados').value = data.IngresosEstimados;
-                        
-                        // Set project ID to the hidden field for deletion
-                        document.getElementById('project-id-to-delete').value = projectId;
                     })
                     .catch(error => console.error('Error:', error));
             }
